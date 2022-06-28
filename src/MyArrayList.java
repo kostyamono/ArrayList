@@ -1,5 +1,6 @@
 import java.util.Arrays;
 
+
 public class MyArrayList {
     private static final int DEFAULT_CAPACITY = 10;
     private String[] elements;
@@ -11,52 +12,51 @@ public class MyArrayList {
     }
 
     public MyArrayList(int capacity) {
-        if (capacity != 0) {
+        if (capacity > 0) {
             elements = new String[capacity];
-        } else elements = new String[DEFAULT_CAPACITY];
+        } else if (capacity == 0) {
+            elements = new String[0];
+        } else {
+            throw new IllegalArgumentException("Illegal Capacity: " +
+                    capacity);
+        }
+    }
+
+    private void rangeCheckForAdd(int index) {
+        if (index < 0 || index > size())
+            throw new IndexOutOfBoundsException("Illegal Index: " +
+                    index);
+    }
+
+    private void ensureCapacity() {
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, (elements.length + elements.length / 2));
+        }
     }
 
 
     public void add(int index, String element) {
-        if (index < size) {
-            if (size == elements.length + 1) {
-                elements = Arrays.copyOf(elements, (elements.length + elements.length / 2));
-            }
-            for (int i = size; i >= index; i--) {
-                elements[i + 1] = elements[i];
-            }
-            elements[index] = element;
-            size++;
-        } else throw new IndexOutOfBoundsException();
+        rangeCheckForAdd(index);
+        ensureCapacity();
+        if (size + 1 - index >= 0) System.arraycopy(elements, index, elements, index + 1, size + 1 - index);
+        elements[index] = element;
+        size++;
     }
 
 
     public void add(String element) {
-        if (elements[elements.length - 1] != null) {
-            elements = Arrays.copyOf(elements, (elements.length + elements.length / 2));
-            for (int i = 0; i < elements.length; i++) {
-                if (elements[i] == null) {
-                    elements[i] = element;
-                    size++;
-                    break;
-                }
-            }
-        } else {
-            for (int i = 0; i < elements.length; i++) {
-                if (elements[i] == null) {
-                    elements[i] = element;
-                    size++;
-                    break;
-                }
-            }
-        }
+        ensureCapacity();
+        elements[size] = element;
+        size++;
     }
 
+
     String get(int index) {
-        if (index <= size) {
+        if (index <= size && index >= 0) {
             return elements[index];
         } else
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Illegal Index: " +
+                    index);
     }
 
 
@@ -65,14 +65,14 @@ public class MyArrayList {
     }
 
     public void remove(int index) {
-        if (index < size) {
+        if (index < size && index >= 0) {
             elements[index] = null;
-            for (int i = index; i < elements.length - 1; i++) {
-                elements[i] = elements[i + 1];
-            }
+            if (elements.length - 1 - index >= 0)
+                System.arraycopy(elements, index + 1, elements, index, elements.length - 1 - index);
             size--;
         } else
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Illegal Index: " +
+                    index);
     }
 
     void trimSize() {

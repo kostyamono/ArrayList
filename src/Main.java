@@ -6,6 +6,12 @@ public class Main {
     public static void main(String[] args) {
         ArrayList <String> arrayList = new ArrayList<>();
         MyArrayList myArrayList = new MyArrayList();
+        MyArrayList myArrayList1 = new MyArrayList(0);
+        MyArrayList myArrayList2 = new MyArrayList(-1221);
+        MyArrayList myArrayList3 = new MyArrayList(1221);
+
+
+
 //        MyArrayList myArrayList1 = new MyArrayList(33);
 //        myArrayList1.add("asd");
 //        System.out.println("ArrayList actual size: " + myArrayList1.size());

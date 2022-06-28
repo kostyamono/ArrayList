@@ -53,14 +53,14 @@ class MyArrayListTest {
     }
 
     @Test
-    void get() {
+    void getTest() {
         myArrayList.add("1");
         myArrayList.add("2");
         assertEquals("2", myArrayList.get(1));
     }
 
     @Test
-    void size() {
+    void getSizeTest() {
         myArrayList.add("1");
         myArrayList.add("1");
         myArrayList.add("1");
@@ -70,7 +70,7 @@ class MyArrayListTest {
     }
 
     @Test
-    void remove() {
+    void removeTest() {
         myArrayList.add("1");
         myArrayList.add("2");
         myArrayList.add("3");
@@ -81,7 +81,7 @@ class MyArrayListTest {
     }
 
     @Test
-    void removeThreeElements() {
+    void removeThreeElementsTest() {
         myArrayList.add("1");
         myArrayList.add("2");
         myArrayList.add("3");
@@ -95,11 +95,20 @@ class MyArrayListTest {
     }
 
     @Test
-    void trimSize() {
+    void trimSizeTest() {
         myArrayList.add("1");
         myArrayList.add("2");
         myArrayList.add("3");
         myArrayList.trimSize();
+        assertEquals(3, myArrayList.size());
+    }
+
+    @Test
+    void testSize() {
+        myArrayList.add("1");
+        myArrayList.add("2");
+        myArrayList.add("3");
+
         assertEquals(3, myArrayList.size());
     }
 }
